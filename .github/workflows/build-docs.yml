@@ -1,0 +1,42 @@
+name: Build API Docs
+run-name: Build & Deploy Docs to `docs`
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+    
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+    
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      
+      - name: Build Docs
+        run: |
+          flutter pub get
+          dart doc
+
+      - name: Upload Doc Artifact(s)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './doc/api'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

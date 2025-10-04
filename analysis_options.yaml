@@ -1,5 +1,9 @@
 include: package:flutter_lints/flutter.yaml
 
+linter:
+  rules:
+    - public_member_api_docs
+
 dart_code_metrics:
   rules:
     - avoid-assignments-as-conditions

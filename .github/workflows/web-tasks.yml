@@ -1,5 +1,5 @@
-name: Build API Docs
-run-name: Build & Deploy Docs to `docs`
+name: Build & Deploy Web & Docs
+run-name: Build & Deploy `docs` and `web-app`
 
 permissions:
   contents: read
@@ -12,7 +12,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  web-tasks:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,19 +23,24 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+          cache: true
     
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-      
+      - name: Build WASM Release
+        run: |
+          flutter clean
+          flutter build web --release --base-href /${{ github.event.repository.name }}/ --wasm --output ./build/web
+
       - name: Build Docs
         run: |
-          flutter pub get
-          dart doc
+          dart doc --output ./build/web/doc
+      
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload Doc Artifact(s)
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './doc/api'
+          path: './build/web'
       
       - name: Deploy to GitHub Pages
         id: deployment

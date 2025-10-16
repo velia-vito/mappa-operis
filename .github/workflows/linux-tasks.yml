@@ -53,6 +53,7 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           name: Test Releases
+          tag: "latest"
           artifacts: your_project_name/build/app/outputs/flutter-apk/*.apk, build/linux/x64/release/${{ github.event.repository.name }}_lin64.zip
           
           allowUpdates: true

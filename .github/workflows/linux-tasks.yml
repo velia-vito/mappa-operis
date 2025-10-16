@@ -2,7 +2,7 @@ name: Build Linux & Android Releases
 run-name: Build & Release`linux` and `android` Releases
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 

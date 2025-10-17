@@ -57,4 +57,4 @@ jobs:
           allowUpdates: true
           makeLatest: true
           body: "Latest, bleeding-edge builds; probably buggy and unstable."
-          artifacts: build/app/outputs/flutter-apk/*.apk, build/linux/x64/release/${{ github.event.repository.name }}_lin64.zip
+          artifacts: build/app/outputs/flutter-apk/*.apk, ./${{ github.event.repository.name }}_lin64.zip

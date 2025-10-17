@@ -31,7 +31,7 @@ jobs:
 
       - name: Zip Linux Release
         run: |
-             tar -a -c -f .\${{ github.event.repository.name }}_win64.zip .\build\windows\x64\runner\Release
+             tar -acf ./${{ github.event.repository.name }}_win64.zip -C ./build/windows/x64/runner/Release .
       
       - uses: ncipollo/release-action@v1
         with:

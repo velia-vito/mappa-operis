@@ -29,15 +29,23 @@ jobs:
         run: |
           flutter clean
           flutter build ios --release --no-codesign --obfuscate --split-debug-info=./build/debug-info/
+
+      - name: Zip iOS Release
+        run: |
+          zip -r ./${{ github.event.repository.name }}_iOS.zip ./build/ios/iphoneos/*.app
       
       - name: Build MacOS Release
         run: |
          flutter build macos --release --obfuscate --split-debug-info=./build/debug-info/
       
+      - name: Zip MacOS Release
+        run: |
+          zip -r ./${{ github.event.repository.name }}_MacOS.zip ./build/macos/Build/Products/Release/*.app
+      
       - uses: ncipollo/release-action@v1
         with:
-          name: Test Releases
-          tag: "latest"
+          name: Bleeding Edge Release
+          tag: "bleeding-edge"
           allowUpdates: true
           makeLatest: true
-          artifacts: ./build/ios/iphoneos/*.app, build/macos/Build/Products/Release/*.app
+          artifacts: ./${{ github.event.repository.name }}_iOS.zip, ./${{ github.event.repository.name }}_MacOS.zip

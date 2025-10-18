@@ -1,52 +1,201 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:mappa_operis/blueprint/blueprint.dart';
+import 'package:mappa_operis/blueprint.dart';
 
 void main(List<String> args) {
-  runApp(FluentApp(home: Center(child: Counter())));
+  runApp(
+    FluentApp(
+      title: 'Counter App',
+      home: ScaffoldPage(
+        content: UtilContainer<CounterFragment, CounterService, CounterRepository>(
+          fragment: CounterFragment(),
+          service: CounterService(),
+          repository: CounterRepository(),
+        ),
+      ),
+    ),
+  );
 }
 
-/// TODO: Doc for final class 'Counter' extending 'ViewModel<CR, CS, CF>'.
-final class Counter extends ViewModel<CR, CS, CF> {
-  late CR repository = CR();
-  late final CS service = CS(repository: repository);
-  late final CF fragment = CF(service: service);
+/// Counter Data.
+final class CounterRepository extends Repository {
+  int _count = 0;
+
+  /// Internal count.
+  int get count => _count;
+
+  set count(int _) {
+    throw UnsupportedError('setter for count not supported, property is read-only.');
+  }
+
+  /// Increment [count] by 1.
+  void increment() {
+    _count += 1;
+  }
+
+  /// Decrement [count] by 1.
+  void decrement() {
+    _count -= 1;
+  }
+
+  /// Double [count].
+  void double() {
+    _count *= 2;
+  }
+
+  /// Half [count].
+  void half() {
+    _count ~/= 2;
+  }
 }
 
-/// TODO: Doc for final class 'CR' extending 'Repository'.
-final class CR extends Repository {
-  int count = 0;
-}
+/// Counter Buisness Logic.
+final class CounterService extends Service<CounterRepository> {
+  /// History of operations on counter.
+  final List<String> actionHistory = <String>[];
 
-/// TODO: Doc for final class 'CS' extending 'Service<CR>'.
-final class CS extends Service<CR> {
-  CS({required super.repository});
-
+  /// Get count.
   int get count => repository.count;
 
-  /// TODO: Doc for function 'inc'.
-  void inc() {
-    repository.count++;
+  set count(int _) {
+    throw UnsupportedError('setter for count not supported, property is read-only.');
+  }
+
+  /// Increment count by 1.
+  void increment() {
+    CounterRepository repo = repository;
+    int previousCount = repo.count;
+
+    repo.increment();
+    actionHistory.add('Incremented from $previousCount to ${repo.count}');
+
     notifyListeners();
   }
 
-  void dec() {
-    repository.count--;
+  /// Decrement count by 1.
+  void decrement() {
+    CounterRepository repo = repository;
+    int previousCount = repo.count;
+
+    repo.decrement();
+    actionHistory.add('Decremented from $previousCount to ${repo.count}');
+
+    notifyListeners();
+  }
+
+  /// Double count.
+  void double() {
+    CounterRepository repo = repository;
+    int previousCount = repo.count;
+
+    repo.double();
+    actionHistory.add('Doubled from $previousCount to ${repo.count}');
+
+    notifyListeners();
+  }
+
+  /// Half count.
+  void half() {
+    CounterRepository repo = repository;
+    int previousCount = repo.count;
+
+    repo.half();
+    actionHistory.add('Halved from $previousCount to ${repo.count}');
+
     notifyListeners();
   }
 }
 
-/// TODO: Doc for final class 'CF' extending 'Fragment<CS>'.
-final class CF extends Fragment<CS> {
-  CF({required super.service});
-
+/// Counter View
+final class CounterFragment extends Fragment<CounterService> {
   @override
-  Widget buildFragment(BuildContext context, CS service, Widget? child) {
+  Widget buildFragment(BuildContext context, CounterService service, Widget? child) {
     return Row(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        IconButton(icon: Icon(FluentIcons.chevron_left_end6), onPressed: () => service.dec()),
-        Text('${service.count}'),
-        IconButton(icon: Icon(FluentIcons.chevron_right_end6), onPressed: () => service.inc()),
+        Expanded(
+          flex: 2,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Button(
+                        onPressed: service.increment,
+                        child: Text('+1', style: FluentTheme.of(context).typography.subtitle),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Button(
+                        onPressed: service.double,
+                        child: Text('×2', style: FluentTheme.of(context).typography.subtitle),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(9.0),
+                  child: Text(
+                    '${service.count}',
+                    style: FluentTheme.of(context).typography.titleLarge,
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Button(
+                        onPressed: service.decrement,
+                        child: Text('-1', style: FluentTheme.of(context).typography.subtitle),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Button(
+                        onPressed: service.half,
+                        child: Text('÷2', style: FluentTheme.of(context).typography.subtitle),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Action History',
+                    style: FluentTheme.of(context).typography.title,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: service.actionHistory.length,
+                    itemBuilder: (context, index) => IntrinsicWidth(
+                      child: ListTile(
+                        title: Text('Action #${index + 1}'),
+                        subtitle: Text(service.actionHistory[index]),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }

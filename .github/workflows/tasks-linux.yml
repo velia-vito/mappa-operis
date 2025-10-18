@@ -52,8 +52,8 @@ jobs:
       
       - uses: ncipollo/release-action@v1
         with:
-          name: Test Releases
-          tag: "latest"
+          name: Bleeding Edge Release
+          tag: "bleeding-edge"
           allowUpdates: true
           makeLatest: true
           body: "Latest, bleeding-edge builds; probably buggy and unstable."

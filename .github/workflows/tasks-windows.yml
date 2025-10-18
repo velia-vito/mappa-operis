@@ -35,8 +35,8 @@ jobs:
       
       - uses: ncipollo/release-action@v1
         with:
-          name: Test Releases
-          tag: "latest"
+          name: Bleeding Edge Release
+          tag: "bleeding-edge"
           allowUpdates: true
           makeLatest: true
           artifacts: ./${{ github.event.repository.name }}_win64.zip

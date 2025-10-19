@@ -1,106 +1,154 @@
 include: package:flutter_lints/flutter.yaml
 
-dart_code_metrics:
+linter:
   rules:
-    - avoid-assignments-as-conditions
-    - avoid-cascade-after-if-null
-    - avoid-casting-to-extension-type
-    - avoid-collection-methods-with-unrelated-types
-    - avoid-commented-out-code
-    - avoid-conditions-with-boolean-literals
-    - avoid-double-slash-imports
-    - avoid-duplicate-exports
-    - avoid-duplicate-mixins
-    - avoid-duplicate-named-imports
-    - avoid-duplicate-test-assertions
-    - avoid-dynamic
-    - avoid-empty-spread
-    - avoid-explicit-pattern-field-name
-    - avoid-generics-shadowing
-    - avoid-global-state
-    - avoid-late-keyword
-    - avoid-missed-calls
-    - avoid-misused-set-literals
-    - avoid-nested-conditional-expressions
-    - avoid-nested-records
-    - avoid-non-null-assertion
-    - avoid-nullable-tostring
-    - avoid-passing-async-when-sync-expected
-    - avoid-passing-self-as-argument
-    - avoid-redundant-async
-    - avoid-self-assignment
-    - avoid-self-compare
-    - avoid-substring
-    - avoid-throw-in-catch-block
-    - avoid-top-level-members-in-tests
-    - avoid-unnecessary-conditionals
-    - avoid-unnecessary-type-assertions
-    - avoid-unnecessary-type-casts
-    - avoid-unrelated-type-assertions
-    - avoid-unused-parameters
-    - binary-expression-operand-order
-    - double-literal-format
-    - member-ordering
-    - missing-test-assertion
-    - newline-before-return
-    - no-boolean-literal-compare
-    - no-empty-block
-    - no-equal-then-else
-    - no-magic-number
-    - prefer-async-await
-    - prefer-commenting-analyzer-ignores
-    - prefer-conditional-expressions
-    - prefer-correct-test-file-name
-    - prefer-enums-by-name
-    - prefer-first
-    - prefer-immediate-return
-    - prefer-iterable-of
-    - prefer-last
-    - prefer-match-file-name
-    - prefer-moving-to-variable
-    - always-remove-listener
-    - avoid-border-all
-    - avoid-expanded-as-spacer
-    - avoid-incomplete-copy-with
-    - avoid-incorrect-image-opacity
-    - avoid-missing-image-alt
-    - avoid-returning-widgets
-    - avoid-shrink-wrap-in-lists
-    - avoid-unnecessary-setstate
-    - avoid-unnecessary-stateful-widgets
-    - avoid-wrapping-in-padding
-    - check-for-equals-in-render-object-setters
-    - consistent-update-render-object
-    - prefer-const-border-radius
-    - prefer-correct-edge-insets-constructor
-    - prefer-define-hero-tag
-    - prefer-extracting-callbacks
-    - prefer-single-widget-per-file
-    - prefer-text-rich
-    - prefer-using-list-view
-    - use-setstate-synchronously
-    - avoid-bloc-public-fields
-    - avoid-bloc-public-methods
-    - avoid-cubits
-    - avoid-duplicate-bloc-event-handlers
-    - avoid-empty-build-when
-    - avoid-existing-instances-in-bloc-provider
-    - avoid-instantiating-in-bloc-value-provider
-    - avoid-passing-bloc-to-bloc
-    - avoid-passing-build-context-to-blocs
-    - avoid-returning-value-from-cubit-methods
-    - check-is-not-closed-after-async-gap
-    - emit-new-bloc-state-instances
-    - handle-bloc-event-subclasses
-    - prefer-bloc-event-suffix
-    - prefer-bloc-extensions
-    - prefer-bloc-state-suffix
-    - prefer-correct-bloc-provider
-    - prefer-immutable-bloc-events
-    - prefer-immutable-bloc-state
-    - prefer-multi-bloc-provider
-    - prefer-sealed-bloc-events
-    - prefer-sealed-bloc-state
+    - always_declare_return_types
+    - always_put_control_body_on_new_line
+    - always_specify_types
+    - always_use_package_imports
+    - annotate_overrides
+    - avoid_bool_literals_in_conditional_expressions
+    - avoid_catches_without_on_clauses
+    - avoid_classes_with_only_static_members
+    - avoid_double_and_int_checks
+    - avoid_dynamic_calls
+    - avoid_empty_else
+    - avoid_equals_and_hash_code_on_mutable_classes
+    - avoid_escaping_inner_quotes
+    - avoid_field_initializers_in_const_classes
+    - avoid_final_parameters
+    - avoid_function_literals_in_foreach_calls
+    - avoid_init_to_null
+    - avoid_js_rounded_ints
+    - avoid_null_checks_in_equality_operators
+    - avoid_positional_boolean_parameters
+    - avoid_print
+    - avoid_private_typedef_functions
+    - avoid_relative_lib_imports
+    - avoid_renaming_method_parameters
+    - avoid_return_types_on_setters
+    - avoid_returning_null_for_void
+    - avoid_returning_this
+    - avoid_setters_without_getters
+    - avoid_shadowing_type_parameters
+    - avoid_single_cascade_in_expression_statements
+    - avoid_slow_async_io
+    - avoid_type_to_string
+    - parameter_assignments
+    - public_member_api_docs
+    - require_trailing_commas
+
+dart_code_metrics:
+  # rules:
+  #   - avoid-assignments-as-conditions
+  #   - avoid-cascade-after-if-null
+  #   - avoid-casting-to-extension-type
+  #   - avoid-collection-methods-with-unrelated-types
+  #   - avoid-commented-out-code
+  #   - avoid-conditions-with-boolean-literals
+  #   - avoid-double-slash-imports
+  #   - avoid-duplicate-exports
+  #   - avoid-duplicate-mixins
+  #   - avoid-duplicate-named-imports
+  #   - avoid-duplicate-test-assertions
+  #   - avoid-dynamic
+  #   - avoid-empty-spread
+  #   - avoid-explicit-pattern-field-name
+  #   - avoid-generics-shadowing
+  #   - avoid-global-state
+  #   # - avoid-late-keyword:                                                     ⭐⭐⭐
+  #   #     allow-initialized: true
+  #   - avoid-missed-calls
+  #   - avoid-misused-set-literals
+  #   - avoid-nested-conditional-expressions
+  #   - avoid-nested-records
+  #   - avoid-non-null-assertion
+  #   - avoid-nullable-tostring
+  #   - avoid-passing-async-when-sync-expected
+  #   - avoid-passing-self-as-argument
+  #   - avoid-redundant-async
+  #   - avoid-self-assignment
+  #   - avoid-self-compare
+  #   - avoid-substring
+  #   - avoid-throw-in-catch-block
+  #   - avoid-top-level-members-in-tests
+  #   - avoid-unnecessary-conditionals
+  #   - avoid-unnecessary-type-assertions
+  #   - avoid-unnecessary-type-casts
+  #   - avoid-unrelated-type-assertions
+  #   - avoid-unused-parameters
+  #   - binary-expression-operand-order
+  #   - double-literal-format
+  #   # - member-ordering:                                                        ⭐⭐⭐
+  #   #     alphabetize: true
+  #   #     order:
+  #   #       - public-fields
+  #   #       - private-fields
+  #   #       - getters-setters
+  #   #       - public-constructors
+  #   #       - private-constructors
+  #   #       - public-methods
+  #   #       - private-methods
+  #   - missing-test-assertion
+  #   - newline-before-return
+  #   - no-boolean-literal-compare
+  #   - no-empty-block
+  #   - no-equal-then-else
+  #   - no-magic-number
+  #   - prefer-async-await
+  #   - prefer-commenting-analyzer-ignores
+  #   - prefer-conditional-expressions
+  #   - prefer-correct-test-file-name
+  #   - prefer-enums-by-name
+  #   - prefer-first
+  #   - prefer-immediate-return
+  #   - prefer-iterable-of
+  #   - prefer-last
+  #   - prefer-match-file-name
+  #   - prefer-moving-to-variable
+  #   - always-remove-listener
+  #   - avoid-border-all
+  #   - avoid-expanded-as-spacer
+  #   - avoid-incomplete-copy-with
+  #   - avoid-incorrect-image-opacity
+  #   - avoid-missing-image-alt
+  #   - avoid-returning-widgets
+  #   - avoid-shrink-wrap-in-lists
+  #   - avoid-unnecessary-setstate
+  #   - avoid-unnecessary-stateful-widgets
+  #   - avoid-wrapping-in-padding
+  #   - check-for-equals-in-render-object-setters
+  #   - consistent-update-render-object
+  #   - prefer-const-border-radius
+  #   - prefer-correct-edge-insets-constructor
+  #   - prefer-define-hero-tag
+  #   - prefer-extracting-callbacks
+  #   - prefer-single-widget-per-file
+  #   - prefer-text-rich
+  #   - prefer-using-list-view
+  #   - use-setstate-synchronously
+  #   - avoid-bloc-public-fields
+  #   - avoid-bloc-public-methods
+  #   - avoid-cubits
+  #   - avoid-duplicate-bloc-event-handlers
+  #   - avoid-empty-build-when
+  #   - avoid-existing-instances-in-bloc-provider
+  #   - avoid-instantiating-in-bloc-value-provider
+  #   - avoid-passing-bloc-to-bloc
+  #   - avoid-passing-build-context-to-blocs
+  #   - avoid-returning-value-from-cubit-methods
+  #   - check-is-not-closed-after-async-gap
+  #   - emit-new-bloc-state-instances
+  #   - handle-bloc-event-subclasses
+  #   - prefer-bloc-event-suffix
+  #   - prefer-bloc-extensions
+  #   - prefer-bloc-state-suffix
+  #   - prefer-correct-bloc-provider
+  #   - prefer-immutable-bloc-events
+  #   - prefer-immutable-bloc-state
+  #   - prefer-multi-bloc-provider
+  #   - prefer-sealed-bloc-events
+  #   - prefer-sealed-bloc-state
 
   metrics:
     # Complexity & Info

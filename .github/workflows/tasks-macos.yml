@@ -48,4 +48,5 @@ jobs:
           tag: "bleeding-edge"
           allowUpdates: true
           makeLatest: true
+          body: "Latest, bleeding-edge builds; probably buggy and unstable."
           artifacts: ./${{ github.event.repository.name }}_iOS.zip, ./${{ github.event.repository.name }}_MacOS.zip

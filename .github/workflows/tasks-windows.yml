@@ -1,0 +1,42 @@
+name: Windows UWP Releases
+run-name: Build & Release for `Windows`
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  windows-tasks:
+    runs-on: windows-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+    
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          cache: true
+          channel: stable
+      
+      - name: Build Windows Release
+        run: |
+          flutter build windows --release --obfuscate --split-debug-info=build/symbols --tree-shake-icons
+
+      - name: Zip Linux Release
+        run: |
+             tar -acf ./${{ github.event.repository.name }}_win64.zip -C ./build/windows/x64/runner/Release .
+      
+      - uses: ncipollo/release-action@v1
+        with:
+          name: Bleeding Edge Release
+          tag: "bleeding-edge"
+          allowUpdates: true
+          makeLatest: true
+          artifacts: ./${{ github.event.repository.name }}_win64.zip

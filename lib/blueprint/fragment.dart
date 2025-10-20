@@ -1,7 +1,7 @@
 part of '../blueprint.dart';
 
 /// A 'Fragment' of UI.
-abstract base class Fragment<S extends Service> {
+abstract base class Fragment<S extends Service<Repository>> {
   /// [Service] that drives the Buisness Logic of this UI Fragment.
   late final S _service;
 

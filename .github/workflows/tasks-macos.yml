@@ -46,7 +46,9 @@ jobs:
         with:
           name: Bleeding Edge Release
           tag: "bleeding-edge"
+          commit: main
           allowUpdates: true
+          
           makeLatest: true
           body: "Latest, bleeding-edge builds; probably buggy and unstable."
           artifacts: ./${{ github.event.repository.name }}_iOS.zip, ./${{ github.event.repository.name }}_MacOS.zip

@@ -17,16 +17,11 @@ final class ISoundRepository extends Repository {
   /// Duration timer has been active this cycle.
   Duration get elapsed => _elapsed;
 
-  set elapsed(Duration _) {
-    throw UnsupportedError('setter for elapsed not supported, property is read-only.');
-  }
-
   /// Weather timer is currently active, i.e. if time is being added to the elaped time.
   bool get isActive => _isActive;
 
-  set isActive(bool _) {
-    throw UnsupportedError('setter for isActive not supported, property is read-only.');
-  }
+  /// Play-Pause cycle count.
+  int _currentCycle = 0;
 
   /// Create an [ISoundRepository].
   ISoundRepository({required this.totalDuration, required this.intervalDuration});
@@ -34,10 +29,21 @@ final class ISoundRepository extends Repository {
   /// Return `true` if sound should be played and `false` if not. Signal is sent every [intervalDuration].
   Stream<bool> soundSignalStream() async* {
     while (elapsed <= totalDuration && isActive) {
-      await Future.delayed(intervalDuration);
-      _elapsed += intervalDuration;
+      // Keep track of current play-pause cycle.
+      int callCycle = _currentCycle;
 
-      yield isActive && true;
+      await Future.delayed(intervalDuration);
+
+      // If still in the same play-pause cycle, update elapsed time and yield signal.
+      // This prevents signal from being yielded at intervals shorter than intervalDuration when paused and resumed quickly.
+      // as the simple condition of elapsed <= totalDuration && isActive would be true in that case.
+      if (callCycle == _currentCycle) {
+        _elapsed += intervalDuration;
+
+        yield isActive && true;
+      } else {
+        break;
+      }
     }
   }
 
@@ -48,6 +54,7 @@ final class ISoundRepository extends Repository {
 
   /// Pause/Stop timer.
   void pause() {
+    _currentCycle++;
     _isActive = false;
   }
 

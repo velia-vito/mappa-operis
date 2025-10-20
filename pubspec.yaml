@@ -1,7 +1,7 @@
 name: mappa_operis
 description: "A new Flutter project."
 publish_to: 'none'
-version: 0.1.0
+version: 0.1.1-bleedingEdge+a99fc78a
 
 environment:
   sdk: ^3.9.2

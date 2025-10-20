@@ -8,6 +8,11 @@ final class ISoundService extends Service<ISoundRepository> {
   /// Internal random engine.
   late final Random _randomEngine = Random();
 
+  double _volume = 100;
+
+  /// Get current volume (0-100).
+  double get volume => _volume;
+
   /// Progress percentage.
   double get progress {
     int totalMillis = repository.totalDuration.inMilliseconds;
@@ -49,6 +54,17 @@ final class ISoundService extends Service<ISoundRepository> {
 
     repository.reset();
 
+    notifyListeners();
+  }
+
+  /// Update Timer Volume
+  void setVolume(double volume) {
+    if (volume < 0 || volume > 100) {
+      throw ArgumentError.value(volume, 'volume', 'Volume must be between 0 and 100.');
+    }
+
+    _volume = volume;
+    _audioPlayer.setVolume(_volume / 100);
     notifyListeners();
   }
 

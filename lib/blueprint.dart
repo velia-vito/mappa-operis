@@ -218,6 +218,7 @@
 ///
 /// Using the [UtilContainer] is easy, just insert the below into your tech tree.
 ///
+/// ```dart
 /// UtilContainer<CounterFragment, CounterService, CounterRepository>(
 ///       fragment: CounterFragment(),
 ///       service: CounterService(),

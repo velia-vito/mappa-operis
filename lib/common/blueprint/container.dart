@@ -1,14 +1,14 @@
 part of '../blueprint.dart';
 
 /// Utility container to connect [Repository]s, [Service]s, and [Fragment]s.
-base class UtilContainer<F extends Fragment<S>, S extends Service<R>, R extends Repository>
+base class UtilContainer<Frag extends Fragment<Serv>, Serv extends Service<Repo>, Repo extends Repository>
     extends StatelessWidget {
-  final F _fragment;
-  final S _service;
-  final R _repository;
+  final Frag _fragment;
+  final Serv _service;
+  final Repo _repository;
 
   /// Creates a [Container] that binds the provided [Fragment], [Service], and [Repository].
-  UtilContainer({super.key, required F fragment, required S service, required R repository})
+  UtilContainer({super.key, required Frag fragment, required Serv service, required Repo repository})
     : _fragment = fragment,
       _service = service,
       _repository = repository {

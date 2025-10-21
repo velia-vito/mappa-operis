@@ -4,7 +4,7 @@
 library;
 
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:mappa_operis/blueprint.dart';
+import 'package:mappa_operis/common/blueprint.dart';
 import 'package:mappa_operis/component/i_sound.dart';
 
 void main(List<String> args) {

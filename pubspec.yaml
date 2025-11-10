@@ -1,7 +1,6 @@
 name: mappa_operis
-description: "A new Flutter project."
-publish_to: 'none'
-version: 0.1.1-bleedingEdge+a99fc78a
+description: "Simple Beeper (For Now)"
+version: 0.1.2-bleedingEdge+99601d22
 
 environment:
   sdk: ^3.9.2

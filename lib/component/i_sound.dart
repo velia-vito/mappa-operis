@@ -2,6 +2,7 @@
 /// {@category Component}
 library;
 
+import 'dart:async';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';

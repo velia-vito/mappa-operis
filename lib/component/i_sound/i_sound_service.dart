@@ -8,6 +8,9 @@ final class ISoundService extends Service<ISoundRepository> {
   /// Internal random engine.
   late final Random _randomEngine = Random();
 
+  /// Stream subscription for sound signals.
+  StreamSubscription<bool>? _soundStreamSubscription;
+
   double _volume = 100;
 
   /// Get current volume (0-100).
@@ -70,12 +73,15 @@ final class ISoundService extends Service<ISoundRepository> {
 
   /// Resume Timer
   void resume() {
+    // Cancel any existing stream subscription to prevent multiple overlapping beeps
+    _soundStreamSubscription?.cancel();
+    
     // Resume timer and notify listeners.
     repository.resume();
     notifyListeners();
 
     // play sound on interval, have UI update.
-    repository.soundSignalStream().listen((bool shouldPlaySound) {
+    _soundStreamSubscription = repository.soundSignalStream().listen((bool shouldPlaySound) {
       if (shouldPlaySound) {
         if (repository.elapsed == repository.totalDuration) {
           _audioPlayer.play(AssetSource('audio/beep-final.mp3'));
@@ -93,13 +99,29 @@ final class ISoundService extends Service<ISoundRepository> {
 
   /// Pause Timer.
   void puase() {
+    // Cancel the stream subscription to stop listening for sound signals
+    _soundStreamSubscription?.cancel();
+    _soundStreamSubscription = null;
+    
     repository.pause();
     notifyListeners();
   }
 
   /// Timer reset.
   void reset() {
+    // Cancel any active stream subscription when resetting
+    _soundStreamSubscription?.cancel();
+    _soundStreamSubscription = null;
+    
     repository.reset();
     notifyListeners();
+  }
+  
+  @override
+  void dispose() {
+    // Clean up resources when service is disposed
+    _soundStreamSubscription?.cancel();
+    _audioPlayer.dispose();
+    super.dispose();
   }
 }
